@@ -1,0 +1,59 @@
+<main class="container my-5">
+  <!-- Page Title -->
+  <header class="text-center mb-4">
+    <h1 class="display-5 fw-bold">PDF Translator</h1>
+    <p class="lead text-muted">Translate any PDF into English and extract the text with layout preserved.</p>
+  </header>
+
+  <!-- Project Overview -->
+  <div class="row mb-5">
+    <div class="col-md-6">
+      <img src="/images/translator.png" alt="PDF Translator Screenshot" class="img-fluid rounded shadow">
+    </div>
+    <div class="col-md-6">
+      <h3>What It Does</h3>
+      <p>This app allows users to upload almost any PDF, extract its text content, and translate it into English. The result is saved as a .txt file for easy access and reuse.</p>
+
+      <h3>Key Features</h3>
+      <ul>
+        <li>Uses PyMuPDF to parse and extract clean text</li>
+        <li>Translation powered by DeepL API</li>
+        <li>Preserves paragraph layout and formatting</li>
+        <li>Outputs a downloadable .txt file</li>
+      </ul>
+
+      <a href="https://pdf-translator-pk.onrender.com/" class="btn btn-primary mt-3" target="_blank" rel="noopener">Visit Live Demo »</a>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Technologies Used -->
+  <section>
+    <h3 class="mb-3">Technologies</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <ul>
+          <li>Python</li>
+          <li>Flask</li>
+          <li>PyMuPDF</li>
+          <li>fpdf2</li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <ul>
+          <li>DeepL API</li>
+          <li>Celery (async tasks)</li>
+          <li>FastAPI (for REST interface)</li>
+          <li>AWS S3 (temporary file handling)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <div class="mt-4">
+  <a href="/projects">&laquo; Back to Projects</a>
+</div>
+</main>
+
+
+

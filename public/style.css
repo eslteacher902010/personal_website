@@ -1,0 +1,50 @@
+.welcome-heading {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #007bff; /* Bootstrap primary blue */
+  margin-top: 2rem;
+  text-align: center;
+  animation: fadeIn 1s ease-in;
+}
+
+.intro-text {
+  font-size: 1.25rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+  animation: fadeIn 1.2s ease-in;
+}
+
+/* Simple fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* style the contact page */
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: point
+}
