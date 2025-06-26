@@ -55,6 +55,11 @@ app.get('/projects/pdf-to-speech', (req, res) => {
   res.render('project_pages/pdf_to_speech', { title: 'PDF to Speech' });
 });
 
+app.get('/projects/job-scraper-and-emailer', (req, res) => {
+  res.render('project_pages/job_scraper', { title: 'Job Scraper & Emailer' });
+});
+
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
