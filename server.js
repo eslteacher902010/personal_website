@@ -38,25 +38,61 @@ app.get('/thank-you', (req, res) => {
   res.render('thankyou', { title: 'Thank You' });
 });
 
-
-app.get('/projects', (req, res) => {
-  res.render('projects', { title: 'Projects' });
+app.get('/instructor-led-training', (req, res) => {
+  res.render('project_pages/ux_projects/instructor-led-training', {
+    title: 'Instructor-Led Training'
+  });
 });
 
-app.get('/projects/translator', (req, res) => {
-  res.render('project_pages/translator', { title: 'Translator' });
+app.get('/elearning/', (req, res) => {
+  res.render('project_pages/ux_projects/elearning', {
+    title: 'elearning'
+  });
 });
 
-app.get('/projects/habit-tracker', (req, res) => {
-  res.render('project_pages/habit_tracker', { title: 'Habit Tracker' });
+app.get('/video-solutions', (req, res) => {
+  res.render('project_pages/ux_projects/video-solutions', {
+    title: 'video-solutions'
+  });
 });
 
-app.get('/projects/pdf-to-speech', (req, res) => {
-  res.render('project_pages/pdf_to_speech', { title: 'PDF to Speech' });
+
+app.get('/other_projects/', (req, res) => {
+  res.render('project_pages/ux_projects/other_projects', {
+    title: 'other_projects'
+  });
 });
 
-app.get('/projects/job-scraper-and-emailer', (req, res) => {
-  res.render('project_pages/job_scraper', { title: 'Job Scraper & Emailer' });
+app.get('/ux-design', (req, res) => {
+  res.render('ux-design', { title: 'ux-design' });
+});
+
+app.get('/websites', (req, res) => {
+  res.render('websites', { title: 'websites' });
+});
+
+app.get('/blog', (req, res) => {
+  res.render('blog', { title: 'blog' });
+});
+
+app.get('/coding-projects', (req, res) => {
+  res.render('coding-projects', { title: 'coding-projects' });
+});
+
+app.get('/coding-projects/translator', (req, res) => {
+  res.render('coding-projects/translator', { title: 'Translator' });
+});
+
+app.get('/coding-projects/habit-tracker', (req, res) => {
+  res.render('coding-projects/habit_tracker', { title: 'Habit Tracker' });
+});
+
+app.get('/coding-projects/pdf-to-speech', (req, res) => {
+  res.render('coding-projects/pdf_to_speech', { title: 'PDF to Speech' });
+});
+
+app.get('/coding-projects/job-scraper-and-emailer', (req, res) => {
+  res.render('coding-projects/job_scraper', { title: 'Job Scraper & Emailer' });
 });
 
 

@@ -5,14 +5,6 @@ body {
   padding: 0;
 }
 
-.welcome-heading {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #007bff; /* Bootstrap primary blue */
-  margin-top: 2rem;
-  text-align: center;
-  animation: fadeIn 1s ease-in;
-}
 
 .intro-text {
   font-size: 1.25rem;
@@ -55,3 +47,502 @@ button {
   border-radius: 6px;
   cursor: point
 }
+
+.hero-banner {
+  height: 200px;
+  background-image: url('/images/gallery_background_03.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 60px 20px;
+}
+
+.intro-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
+  flex-wrap: wrap;
+}
+
+.intro-text-block {
+  flex: 1;
+  min-width: 300px;
+}
+
+.welcome-heading {
+  font-size: 2.5rem;
+  color: #1f6f8b;
+  margin-bottom: 1rem;
+  font-family: 'Libre Baskerville', serif;
+  text-align: left;
+  margin: 0 auto;
+  max-width: 600px;      
+}
+
+.intro-text {
+  max-width: 600px;
+  margin: 0 auto;         
+  font-size: 1.25rem;
+  line-height: 1.6;
+  text-align: left;
+  font-family: 'Merriweather', serif;    
+}
+
+.hero-photo {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signature{
+   font-family: 'Caveat', Arial, sans-serif;
+   font-size: 2rem; /* Adjust as needed */
+   max-width: 600px;
+   line-height: 1.6;
+  text-align: left;
+  margin: 0 auto;      
+}
+
+
+
+.skills {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 40px;
+  background-color: #4f6f6f;
+  color: white;
+  text-align: left;
+  gap: 40px;
+  flex-wrap: wrap; 
+  
+}
+
+.skills-organize {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 280px;
+  align-items: flex-start;  /* aligns child items left */
+  text-align: left;
+  margin-top: -20px;
+}
+
+.skills-header {
+  margin: 0 0 10px 0;        /* ensure no extra horizontal margin */
+  padding: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: left;
+  font-family: 'Merriweather', serif;
+  padding-top: 0;
+  transform: translateY(-30px); /* shifts the element upward */
+}
+
+.skills_descript {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 0;                /* remove default paragraph margins */
+  padding: 0;               /* just in case */
+}
+
+
+.skills-photo {
+  max-width: 350px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* about page */
+
+.about-row{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
+  flex-wrap: wrap;
+
+}
+
+.about-text-block{
+  flex: 1;
+  min-width: 300px;
+}
+
+.fs-5{
+  max-width: 600px;
+  margin: 0 auto;         
+  font-size: 1.25rem;
+  line-height: 1.6;
+  text-align: left;
+  font-family: 'Merriweather', serif; 
+  margin-bottom: 1.5rem;   
+}
+
+.fs-6{
+  max-width: 600px;
+  line-height: 1.6;
+  margin: 0 auto;         
+  font-size: 1.25rem !important;
+  line-height: 1.6;
+  text-align: left;
+  font-family: 'Merriweather', serif; 
+  margin-bottom: 1.5rem;   
+}
+
+.about-me-photo-one {
+  max-width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  align-self: flex-start;
+  margin-top: -20px; /* tweak as needed */
+}
+
+.spartan-race{
+  max-width: 350px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+ul {
+  list-style-type: disc;
+}
+
+.lets-talk {
+  display: inline-block;
+  padding: 10px 16px;
+  color: #4f6f6f;
+  font-size: 2rem !important;
+  border-radius: 6px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+/* instructor led section */
+
+.instructor-led-banner {
+  padding: 100px 20px 60px; /* Top, sides, bottom */
+  background-color: rgb(87, 110, 116);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+
+
+.header-ilt{
+  margin: 0;
+  padding: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: left;
+  font-family: 'Merriweather', serif;
+  padding-top: 0;
+  transform: translateY(-30px); /* shifts the element upward */
+  color: rgba(226,248,254)
+}
+
+.ilt-explain {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  padding-left: 0;
+  margin: 0;
+  list-style-position: inside; /* ✅ aligns bullet with heading text */
+}
+
+.ilt-button {
+  display: inline-block;
+  background-color: white;
+  color: #3f6f76; /* teal-ish color matching your theme */
+  font-family: 'Merriweather', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 16px 32px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
+}
+
+.ilt-button:hover {
+  background-color: #e6f2f2; /* subtle light teal on hover */
+  color: #2d4f50;
+}
+
+
+.section-banner {
+  text-align: center;
+  padding: 60px 20px 30px;
+}
+
+.section-title {
+  font-family: 'Merriweather', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2f6f7f; /* same blue as your headers */
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  font-family: 'Merriweather', serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.storyboard-section {
+  padding: 60px 20px;
+}
+
+.storyboard-img {
+  width: 100%;
+  max-width: 400px; /* Smaller than before */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.section-title {
+  font-family: 'Merriweather', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #3f6f76;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-family: 'Merriweather', serif;
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.ilt-button {
+  display: inline-block;
+  background-color: #4f6f6f;
+  color: white;
+  font-family: 'Merriweather', serif;
+  font-size: 1.25rem;
+  padding: 16px 32px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
+}
+
+.ilt-button:hover {
+  background-color: #3d5e5e;
+  color: #e6f2f2;
+}
+
+@media (max-width: 768px) {
+  .storyboard-row {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.storyboard-img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.project-section {
+  background-color: #eaf2f3;
+  padding: 60px 20px;
+}
+
+.project-block {
+  background-color: #fff;
+  padding: 40px;
+  margin-bottom: 40px;
+  border-radius: 8px;
+}
+
+.project-title {
+  font-family: 'Merriweather', serif;
+  font-size: 1.75rem;
+  color: #3f6f76;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.tools-list {
+  margin-top: 20px;
+  padding-left: 20px;
+  list-style-type: square;
+  font-size: 1rem;
+}
+
+.project-button {
+  display: inline-block;
+  background-color: #4f6f6f;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+.project-button:hover,
+.nav-button:hover {
+  background-color: #3d5e5e;
+}
+
+.nav-button {
+  background-color: #4f6f6f;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.my-custom-spacing {
+  margin-top: 2rem;
+}
+
+.footer-icon {
+  max-width: 250px;
+  height: auto;
+  padding-left: 3rem; /* was 2rem */
+  padding-right: 3rem; /* was 2rem */
+}
+
+
+.footer-photo {
+  max-width: 80px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.web-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #416d6d;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  display: block;
+  width: fit-content; /* optional but useful */
+  margin: 0 auto;
+}
+
+.web-button:hover {
+  background-color: #2f4f4f;
+  color: #fff;
+}
+
+.highlight-box {
+  background-color: #546f74; /* adjust for your theme */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.header-ilt {
+  color: #eaf6f6;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.web-description {
+  font-size: 1.15rem;
+  color: white;
+  text-align: left;
+}
+
+.project-title {
+  font-family: 'Merriweather', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #3f6f76;
+  margin-bottom: 1rem;
+}
+
+.other-news {
+  font-size: 2.25rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  color: #2c3e50;
+  background: linear-gradient(90deg, #f4f7f8, #edf1f2);
+  border-left: 4px solid #6c8c8c;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.wide-container {
+  max-width: 2000px; /* or wider if needed */
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+
+.san-fran-banner {
+  background-image: url('/images/sanfran.png'); /* or a full URL */
+  background-size: cover;
+  background-position: 50% 80%; /* 👈 shifts focus slightly upward */
+  background-repeat: no-repeat;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.fab.fa-github {
+  color: #333;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.fab.fa-github:hover {
+  color: #4078c0; /* GitHub blue */
+  transform: scale(1.1);
+}
+
+
+.github-icon {
+  font-size: 64px; /* Match your LinkedIn image size */
+  color: #333;
+  transition: transform 0.2s ease;
+}
+
+.github-icon:hover {
+  transform: scale(1.1);
+  color: #4078c0; /* Optional: GitHub blue on hover */
+}
+
+
