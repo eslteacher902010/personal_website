@@ -546,3 +546,35 @@ ul {
 }
 
 
+.hero-banner {
+  background-image: url('/images/fog-rolls.png');
+  background-size: cover;
+  background-position: center;
+  padding: 100px 0;
+  color: white;
+  position: relative;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+}
+
+.work-links ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.work-links li a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.work-links li a:hover {
+  text-decoration: underline;
+}

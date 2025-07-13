@@ -95,6 +95,11 @@ app.get('/coding-projects/job-scraper-and-emailer', (req, res) => {
   res.render('coding-projects/job_scraper', { title: 'Job Scraper & Emailer' });
 });
 
+app.get('/projects', (req, res) => {
+  res.render('projects');
+});
+
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
