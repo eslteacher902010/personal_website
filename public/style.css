@@ -547,34 +547,47 @@ ul {
 
 
 .projects-banner {
-  background-image: url('/images/fog-rolls.png');
+  background-image: url('/images/fog-rolls.png'); /* your background */
   background-size: cover;
   background-position: center;
   padding: 100px 0;
   color: white;
   position: relative;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
 }
 
-.overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 2rem;
+.shadow-banner {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+
+
+.work-links {
+  margin-top: 30px;
+  text-align: center;
 }
 
 .work-links ul {
   list-style: none;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 2rem;
 }
 
-.work-links li a {
+.work-links li {
+  display: inline-block;
+  margin: 10px 20px;
+  font-size: 1.1rem;
+}
+
+.work-links a {
+  color: #0c1117;
+  font-weight: 600;
   text-decoration: none;
-  font-weight: bold;
-  color: #007bff;
+  transition: color 0.3s ease;
 }
 
-.work-links li a:hover {
+.work-links a:hover {
+  color: #303439;
   text-decoration: underline;
 }
