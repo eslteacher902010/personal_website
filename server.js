@@ -96,8 +96,9 @@ app.get('/coding-projects/job-scraper-and-emailer', (req, res) => {
 });
 
 app.get('/projects', (req, res) => {
-  res.render('projects', { title: 'Project Page' });
+  res.render('projects', { title: 'Projects' });
 });
+
 
 
 
