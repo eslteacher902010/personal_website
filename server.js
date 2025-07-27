@@ -80,19 +80,19 @@ app.get('/coding-projects', (req, res) => {
 });
 
 app.get('/coding-projects/translator', (req, res) => {
-  res.render('coding-projects/translator', { title: 'Translator' });
+  res.render('project_pages/translator', { title: 'Translator' });
 });
 
 app.get('/coding-projects/habit-tracker', (req, res) => {
-  res.render('coding-projects/habit_tracker', { title: 'Habit Tracker' });
+  res.render('project_pages/habit_tracker', { title: 'Habit Tracker' });
 });
 
 app.get('/coding-projects/pdf-to-speech', (req, res) => {
-  res.render('coding-projects/pdf_to_speech', { title: 'PDF to Speech' });
+  res.render('project_pages/pdf_to_speech', { title: 'PDF to Speech' });
 });
 
 app.get('/coding-projects/job-scraper-and-emailer', (req, res) => {
-  res.render('coding-projects/job_scraper', { title: 'Job Scraper & Emailer' });
+  res.render('project_pages/job_scraper', { title: 'Job Scraper & Emailer' });
 });
 
 app.get('/projects', (req, res) => {
