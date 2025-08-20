@@ -100,6 +100,35 @@ app.get('/projects', (req, res) => {
 });
 
 
+app.get('/sitemap.xml', (req, res) => {
+  const pages = [
+    { url: '/', priority: 1.0 },
+    { url: '/about', priority: 0.8 },
+    { url: '/contact', priority: 0.8 },
+    { url: '/thank-you', priority: 0.5 },
+    { url: '/instructor-led-training', priority: 0.8 },
+    { url: '/elearning', priority: 0.8 },
+    { url: '/video-solutions', priority: 0.8 },
+    { url: '/other_projects', priority: 0.7 },
+    { url: '/ux-design', priority: 0.8 },
+    { url: '/websites', priority: 0.8 },
+    { url: '/blog', priority: 0.8 },
+    { url: '/coding-projects', priority: 0.8 },
+    { url: '/coding-projects/translator', priority: 0.7 },
+    { url: '/coding-projects/habit-tracker', priority: 0.7 },
+    { url: '/coding-projects/pdf-to-speech', priority: 0.7 },
+    { url: '/coding-projects/job-scraper-and-emailer', priority: 0.7 },
+    { url: '/projects', priority: 0.8 }
+  ];
+
+  res.header('Content-Type', 'application/xml');
+  res.render('sitemap', { 
+    pages, 
+    host: 'https://paulkniaz.com'   
+  });
+});
+
+
 
 
 app.listen(port, () => {
