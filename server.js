@@ -79,6 +79,10 @@ app.get('/coding-projects', (req, res) => {
   res.render('coding-projects', { title: 'coding-projects' });
 });
 
+app.get('/obj_builder', (req, res) => {
+  res.render('program_desc/obj_builder', { title: 'obj_builder' });
+});
+
 app.get('/coding-projects/translator', (req, res) => {
   res.render('project_pages/translator', { title: 'Translator' });
 });

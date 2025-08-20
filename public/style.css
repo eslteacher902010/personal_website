@@ -244,9 +244,8 @@ ul {
   align-items: center;
   text-align: center;
   color: white;
+  border-radius: 12px;
 }
-
-
 
 .header-ilt{
   margin: 0;
