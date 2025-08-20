@@ -123,7 +123,9 @@ app.get('/sitemap.xml', (req, res) => {
 
   res.header('Content-Type', 'application/xml');
   res.render('sitemap', { 
-    pages, 
+    title: 'Sitemap',
+    pages,
+    layout: false,
     host: 'https://paulkniaz.com'   
   });
 });
