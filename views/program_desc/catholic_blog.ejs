@@ -1,0 +1,202 @@
+<section class="obj_builder_creator" style="background-color: #dce8ea;">
+  <div class="container">
+    <!-- Project 1 -->
+     <h1> The Genesis of An Idea </h1>
+     <p> One day my second youngest sister texted me an idea. Hey, wouldn't it be cool if there was some way to get .</p>
+    <h2>Born From UX Design Projects</h2>
+    <p>The idea really came from my UX course. I'd made a powerpoint on stress management but I felt like it wasn't really marketable. Then one day I came across a blog where UX designers were talking about how they'd developed their trade.</p>
+    <p>Someone was talking about how she'd made a bird call app that taught users to understand bird calls in their neighborhood. She'd started by sketching out the idea and then learned some coding to make it a reality. Wow! I thought. This could be something I could do.</p>
+
+
+    <div class="row align-items-center mb-5">
+      <div class="col-md-4 text-center">
+        <a href="/images/app-images/wida-stage1.png" target="_blank">
+          <img src="/images/app-images/wida-stage1.png" alt="WIDA stage 1" class="img-fluid rounded shadow" style="max-width:300px;" > </a>
+        </div>
+      
+        <div class="col-md-8">
+        <strong>Figma</strong>
+         <p>
+            Googling/Asking AI led me over to a website called 
+            <a href="https://www.figma.com" target="_blank" rel="noopener noreferrer">Figma</a>.
+            Figma is a website where you can start planning something out. 
+            My earliest slide was this one. I knew that I wanted to have a link 
+            to WIDA, finished language objectives for teachers to view, and 
+            the possibility of creating your own.
+          </p>
+        </div>
+    </div>
+
+    <div class="row align-items-center mb-5">
+      <div class="col-md-4 text-center">
+        <a href="/images/app-images/view_mode.png" target="_blank">
+          <img src="/images/app-images/view_mode.png" alt="WIDA viewer" class="img-fluid rounded shadow" style="max-width:300px;"></a>
+      </div>
+      
+        <div class="col-md-8">
+        <strong>Basic Viewing Mode and Learning Figma</strong>
+         <p>
+          I knew what I wanted the view mode to look like and it was pretty basic. Just one Language Objective per slide and a next and back button along with a create objective button. </p>
+          <p>Learning how to manipulate the tools in Figma took me some time, but it was cool to see how an artist/creator could use Figma to dream up great ideas.</p>
+        </div>
+    </div>
+
+       <div class="row align-items-center mb-5">
+      
+        <div class="col-md-8">
+        <strong>Flow or Storyboarding</strong>
+         <p>
+            From there, I began sketching out my basic flow or storyboard for the create aspect of the app. For an idea of what storyboarding is, Wikipedia provides a pretty good start
+            <a href="https://en.wikipedia.org/wiki/Storyboard" target="_blank" rel="noopener noreferrer">Wikipedia-storyboarding</a>. My goal was to create an app called the <strong>Combiner</strong>  that in the end would combine everything together. 
+          </p>
+        </div>
+        <div class="col-md-4 text-center">
+        <a href="/images/app-images/flow.png" target="_blank">
+          <img src="/images/app-images/flow.png" alt="a picture of the flow" class="img-fluid rounded shadow" style="max-width:300px;" > </a>
+        </div>
+    </div>
+
+    <div class="row align-items-center mb-5">
+      <div class="col-md-4 text-center">
+        <a href="/images/app-images/early_stage_app.png" target="_blank">
+          <img src="/images/app-images/early_stage_app.png" alt="early_stages" class="img-fluid rounded shadow" style="max-width:300px;"></a>
+      </div>
+      
+        <div class="col-md-8">
+        <strong>Early Versions</strong>
+         <p>
+          Early versions were extremely basic. I didn't attempt to style much at all. 
+          They were also kind of tedious. Basically, they involved a lot of clicking. I showed my brother in law who works in UX design and his comments reflected that. Basically the site was just drop downs and clicking next.</p>
+        </div>
+    </div>
+
+
+     <div class="row align-items-center mb-5">
+      
+        <div class="col-md-8">
+        <strong>The Rise of AI</strong>
+         <p>
+          I had already been using AI to help me problem solve issues, so it occured to me one day why don't I make the app AI involved. All along I'd been secretly wondering if AI was rendering my app useless--why not just ask Chatgpt to write you an objective? But I thought what if I involved AI in the process but improved it...Adding dropdowns, cards, and selections. The result was a language objective making guide/avatar.</p>
+
+          <p> Learning how to integrate AI into Python Flask was a little bit of a learning curb. After a basic import, I learned how to manipulate the AI by setting things like it's temperature and giving it prompts. It's a bit like stage directions. An example of what I basically ended up with in each route is below. 
+
+             <pre><code>assistant_reply = clean_gpt_response(
+                ask_llm(
+                    [
+                        {"role": "system", "content":
+                         "Explain WIDA language domains (Listening, Speaking, Reading, Writing) "
+                         "in one short line each. End with one question: "
+                         "'Which domain fits your lesson?' Use bullets; ≤8 words per bullet."
+                        }
+                    ] + chat_history,
+                    model="gpt-4",
+                    max_tokens=120,
+                    temperature=0.2
+                )</code></pre>
+            
+          </p>
+
+        </div>
+
+         <div class="col-md-4 text-center">
+        <a href="/images/app-images/avatar.png" target="_blank">
+          <img src="/images/app-images/avatar.png" alt="early_stages" class="img-fluid rounded shadow" style="max-width:250px;"></a>
+      </div>
+
+    </div>
+
+
+    <div class="row align-items-center mb-5">
+        <div class="col-md-8">
+        <strong>Finishing Touches</strong>
+         <p>
+          I continue to improve the site but some finishing touches included adding a tracker so that users could see how many questions they have left. I am asking teachers to give me feedback and we'll see what happens. <strong>Below</strong> you'll see more examples</p>
+        
+          <p>Here's a quite how to guide that will hopefully help you navigate the app.</p>
+
+          <div class="text-start mt-4">
+          <a href="https://drive.google.com/file/d/17PVZjL2XwjWG01n1vA2kERW3vdhupPNj/view?usp=sharing." class="web-button">View Language Objective Builder</a>
+</div>
+
+
+        </div>
+
+          <div class="col-md-4 text-center">
+        <a href="/images/app-images/tracker.png" target="_blank">
+          <img src="/images/app-images/tracker.png" alt="tracker" class="img-fluid rounded shadow" style="max-width:300px;"></a>
+      </div>
+
+    </div>
+
+    <div class="row">
+     <!-- Card 1 -->
+        <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+            <a href="/images/app-images/klu_cards.png" target="_blank" class="card-img-top">
+              <img src="/images/app-images/klu_cards.png"alt="tracker" class="img-fluid rounded" style="max-width:350px;"></a>
+          
+            <div class="card-body">
+              <p class="card-text">
+                Dynamic cards allow user to click on and learn more about a concept. They can also ask questions. 
+              </p>
+              </div>
+            </div>
+          </div>
+        
+        
+        <!-- Card 2 -->
+        <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+            <a href="/images/app-images/selectables.png" target="_blank" class="card-img-top">
+              <img src="/images/app-images/selectables.png"alt="tracker" class="img-fluid rounded" style="max-width:350px;"></a>
+          
+            <div class="card-body">
+              <p class="card-text">
+                I also experimented with radio dial buttons for certain parts of the language objective. 
+              </p>
+              </div>
+            </div>
+          </div>
+        
+
+        <!-- Card 3 -->
+        <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+            <a href="/images/app-images/downloadable.png" target="_blank" class="card-img-top">
+              <img src="/images/app-images/downloadable.png"alt="tracker" class="img-fluid rounded" style="max-width:350px;"></a>
+            <div class="card-body">
+              <p class="card-text">
+                The end result should be a downloadable objective that is useful to the user. 
+              </p>
+              </div>
+            </div>
+          </div>
+  </div>
+  </div>
+
+<h2>See it Here:</h2>
+
+  <div class="text-start mt-4">
+          <a href="https://ellobjectivebuilder.com/" class="web-button">View Language Objective Builder</a>
+</div>
+
+</section>
+
+
+
+<style>
+  .obj_builder_creator {
+    padding: 2px;
+  
+  }
+
+  p {
+  padding: 2px;
+}
+
+.obj_builder_creator h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+</style>
