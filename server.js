@@ -1,16 +1,47 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+
+
 const expressLayouts = require('express-ejs-layouts');
+
+const COMMIT = process.env.RENDER_GIT_COMMIT || 'dev';
+app.get('/__health', (req, res) =>
+  res.json({ ok: true, commit: COMMIT, time: new Date().toISOString() })
+);
+
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(expressLayouts);
 app.set('layout', 'base');
 
-
 app.use(express.urlencoded({ extended: true }));
 
+// --- Fix: /index.html should be / ---
+app.get('/index.html', (req, res) => {
+  res.redirect(301, '/');
+});
+
+// --- Legacy redirects: old -> new canonical paths under /projects/* ---
+const redirects = {
+  // Old "coding-projects" paths → new "/projects/*" equivalents
+  '/coding-projects/websites': '/projects/websites',
+  '/coding-projects/ux-design': '/projects/ux-design',
+  '/coding-projects/coding-projects': '/projects',
+  '/coding-projects/habit-tracker': '/projects/habit-tracker',
+  '/coding-projects/pdf-to-speech': '/projects/pdf-to-speech',
+  '/coding-projects/job-scraper-and-emailer': '/projects/job-scraper',
+  '/coding-projects/translator': '/projects/translator'
+};
+
+app.use((req, res, next) => {
+  const target = redirects[req.path];
+  if (target) return res.redirect(301, target);
+  next();
+});
+
+// --- Your existing routes (unchanged) ---
 app.get('/', (req, res) => {
   res.render('index', { title: 'Home' });
 });
@@ -55,7 +86,6 @@ app.get('/video-solutions', (req, res) => {
     title: 'video-solutions'
   });
 });
-
 
 app.get('/other_projects/', (req, res) => {
   res.render('project_pages/ux_projects/other_projects', {
@@ -107,7 +137,32 @@ app.get('/projects', (req, res) => {
   res.render('projects', { title: 'Projects' });
 });
 
+// --- NEW: Add matching /projects/* routes so the redirected URLs resolve (no rename of templates) ---
+app.get('/projects/websites', (req, res) => {
+  res.render('websites', { title: 'websites' });
+});
 
+app.get('/projects/ux-design', (req, res) => {
+  res.render('ux-design', { title: 'ux-design' });
+});
+
+app.get('/projects/habit-tracker', (req, res) => {
+  res.render('project_pages/habit_tracker', { title: 'Habit Tracker' });
+});
+
+app.get('/projects/translator', (req, res) => {
+  res.render('project_pages/translator', { title: 'Translator' });
+});
+
+app.get('/projects/pdf-to-speech', (req, res) => {
+  res.render('project_pages/pdf_to_speech', { title: 'PDF to Speech' });
+});
+
+app.get('/projects/job-scraper', (req, res) => {
+  res.render('project_pages/job_scraper', { title: 'Job Scraper & Emailer' });
+});
+
+// --- Sitemap (host set to www since apex redirects to www) ---
 app.get('/sitemap.xml', (req, res) => {
   const pages = [
     { url: '/', priority: 1.0 },
@@ -126,21 +181,31 @@ app.get('/sitemap.xml', (req, res) => {
     { url: '/coding-projects/habit-tracker', priority: 0.7 },
     { url: '/coding-projects/pdf-to-speech', priority: 0.7 },
     { url: '/coding-projects/job-scraper-and-emailer', priority: 0.7 },
-    { url: '/projects', priority: 0.8 }
+    { url: '/projects', priority: 0.8 },
+
+    // Add the new canonical /projects/* pages so Google finds them
+    { url: '/projects/websites', priority: 0.8 },
+    { url: '/projects/ux-design', priority: 0.8 },
+    { url: '/projects/habit-tracker', priority: 0.7 },
+    { url: '/projects/translator', priority: 0.7 },
+    { url: '/projects/pdf-to-speech', priority: 0.7 },
+    { url: '/projects/job-scraper', priority: 0.7 }
   ];
 
   res.header('Content-Type', 'application/xml');
-  res.render('sitemap', { 
+  res.render('sitemap', {
     title: 'Sitemap',
     pages,
     layout: false,
-    host: 'https://paulkniaz.com'   
+    host: 'https://www.paulkniaz.com'
   });
 });
 
-
-
-
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+// --- Optional: simple 404 (text) so unknown paths are explicit (won't crash if no 404.ejs) ---
+app.use((req, res) => {
+  res.status(404).send('Not Found');
 });
+
+// listen with Render's port
+
+app.listen(port, () => console.log('Server on :', port));
