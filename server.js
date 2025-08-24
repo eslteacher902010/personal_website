@@ -18,7 +18,7 @@ app.set('layout', 'base');
 
 app.use(express.urlencoded({ extended: true }));
 
-// --- Fix: /index.html should be / ---
+//fixed index
 app.get('/index.html', (req, res) => {
   res.redirect(301, '/');
 });
@@ -137,7 +137,7 @@ app.get('/projects', (req, res) => {
   res.render('projects', { title: 'Projects' });
 });
 
-// --- NEW: Add matching /projects/* routes so the redirected URLs resolve (no rename of templates) ---
+// cleaned this up to redirect correctly 
 app.get('/projects/websites', (req, res) => {
   res.render('websites', { title: 'websites' });
 });
