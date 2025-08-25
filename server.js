@@ -10,11 +10,12 @@ app.get('/__health', (req, res) =>
 );
 
 // ---- Canonical host + HTTPS redirect (run this EARLY) ----
-app.set('trust proxy', true); // respect X-Forwarded-* from Cloudflare/Render
-const CANONICAL_HOST = 'paulkniaz.com';
+app.set('trust proxy', true); // keep this
+
+const CANONICAL_HOST = 'www.paulkniaz.com';
 
 app.use((req, res, next) => {
-  if (req.path === '/__health') return next(); // don't redirect health checks
+  if (req.path === '/__health') return next(); // never redirect health
   const host = req.headers.host || '';
   if (host !== CANONICAL_HOST) {
     return res.redirect(301, `https://${CANONICAL_HOST}${req.originalUrl}`);
