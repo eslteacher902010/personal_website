@@ -5,22 +5,31 @@ const port = process.env.PORT || 3000;
 const expressLayouts = require('express-ejs-layouts');
 
 const COMMIT = process.env.RENDER_GIT_COMMIT || 'dev';
-app.get('/__health', (req, res) =>
-  res.json({ ok: true, commit: COMMIT, time: new Date().toISOString() })
-);
+const healthHandler = (req, res) =>
+  res.json({ ok: true, commit: COMMIT, time: new Date().toISOString() });
+
+app.get('/__health', healthHandler);
+app.get('/healthz', healthHandler);
+
 
 // ---- Canonical host + HTTPS redirect (run this EARLY) ----
-app.set('trust proxy', true); // keep this
+app.set('trust proxy', true);
 
 const CANONICAL_HOST = 'www.paulkniaz.com';
+const BYPASS = new Set(['/__health', '/healthz', '/sitemap.xml', '/robots.txt']);
 
 app.use((req, res, next) => {
-  if (req.path === '/__health') return next(); // never redirect health
+  if (BYPASS.has(req.path)) return next();
+
   const host = req.headers.host || '';
-  if (host !== CANONICAL_HOST) {
+  const isHttps = req.secure || req.headers['x-forwarded-proto'] === 'https';
+  const isRenderDefault = host.endsWith('.onrender.com');
+
+  // allow Render default domain for testing
+  if (!isRenderDefault && host !== CANONICAL_HOST) {
     return res.redirect(301, `https://${CANONICAL_HOST}${req.originalUrl}`);
   }
-  if (!req.secure) {
+  if (!isHttps) {
     return res.redirect(301, `https://${host}${req.originalUrl}`);
   }
   next();
