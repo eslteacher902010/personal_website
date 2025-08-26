@@ -134,36 +134,37 @@ app.get('/projects/job-scraper', (req, res) =>
 );
 
 // Sitemap (use your canonical host)
+// Sitemap (no EJS — removes a common 500 cause)
 app.get('/sitemap.xml', (req, res) => {
+  const host = 'https://www.paulkniaz.com';
   const pages = [
-    { url: '/', priority: 1.0 },
-    { url: '/about', priority: 0.8 },
-    { url: '/contact', priority: 0.8 },
-    { url: '/thank-you', priority: 0.5 },
-    { url: '/instructor-led-training', priority: 0.8 },
-    { url: '/elearning', priority: 0.8 },
-    { url: '/video-solutions', priority: 0.8 },
-    { url: '/other_projects', priority: 0.7 },
-    { url: '/ux-design', priority: 0.8 },
-    { url: '/websites', priority: 0.8 },
-    { url: '/blog', priority: 0.8 },
-    { url: '/coding-projects', priority: 0.8 },
-    { url: '/coding-projects/translator', priority: 0.7 },
-    { url: '/coding-projects/habit-tracker', priority: 0.7 },
-    { url: '/coding-projects/pdf-to-speech', priority: 0.7 },
-    { url: '/coding-projects/job-scraper-and-emailer', priority: 0.7 },
-    { url: '/projects', priority: 0.8 },
-    { url: '/projects/websites', priority: 0.8 },
-    { url: '/projects/ux-design', priority: 0.8 },
-    { url: '/projects/habit-tracker', priority: 0.7 },
-    { url: '/projects/translator', priority: 0.7 },
-    { url: '/projects/pdf-to-speech', priority: 0.7 },
-    { url: '/projects/job-scraper', priority: 0.7 },
+    '/', '/about', '/contact', '/thank-you',
+    '/instructor-led-training', '/elearning', '/video-solutions', '/other_projects',
+    '/ux-design', '/websites', '/blog', '/coding-projects',
+    '/coding-projects/translator', '/coding-projects/habit-tracker',
+    '/coding-projects/pdf-to-speech', '/coding-projects/job-scraper-and-emailer',
+    '/projects', '/projects/websites', '/projects/ux-design',
+    '/projects/habit-tracker', '/projects/translator',
+    '/projects/pdf-to-speech', '/projects/job-scraper',
   ];
+  const xml = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...pages.map(p => [
+      '  <url>',
+      `    <loc>${host}${p}</loc>`,
+      '    <changefreq>weekly</changefreq>',
+      '    <priority>0.8</priority>',
+      '  </url>',
+    ].join('\n')),
+    '</urlset>',
+  ].join('\n');
+
   res.set('Content-Type', 'application/xml');
   res.set('Cache-Control', 'public, max-age=300');
-  res.render('sitemap', { title: 'Sitemap', pages, layout: false, host: 'https://www.paulkniaz.com' });
+  res.send(xml);
 });
+
 
 // ---- 404 ----
 app.use((req, res) => res.status(404).type('text').send('Not Found'));
