@@ -39,21 +39,24 @@ app.use((req, res, next) => {
     return res.redirect(301, `https://${CANONICAL_HOST}${req.originalUrl}`);
   }
 
-  res.setHeader('Strict-Transport-Security', 'max-age=15552000; includeSubDomains; preload');
+  res.setHeader(
+    'Strict-Transport-Security',
+    'max-age=15552000; includeSubDomains; preload'
+  );
   next();
 });
 
 // ---- Views / Layouts / Static ----
-app.set('views', path.join(__dirname, 'views'));         // 👈 NEW (ensure Express can find your EJS files)
+app.set('views', path.join(__dirname, 'views'));   // ensure Express finds your EJS files
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
-app.set('layout', 'base');                                // requires ./views/base.ejs with <%- body %>
+app.set('layout', 'base');                         // requires ./views/base.ejs with <%- body %>
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
 // ---- Default template locals (avoid EJS ReferenceErrors) ----
-app.use((req, res, next) => {                             // 👈 NEW (prevents "canonical is not defined")
+app.use((req, res, next) => {
   const host = (req.headers.host || CANONICAL_HOST).toLowerCase();
   const proto = (req.secure || req.headers['x-forwarded-proto'] === 'https') ? 'https' : 'http';
   const pathOnly = req.originalUrl ? req.originalUrl.split('?')[0] : '/';
@@ -71,7 +74,7 @@ app.use((req, res, next) => {                             // 👈 NEW (prevents 
   next();
 });
 
-// Fixed index
+// ---- Convenience redirects ----
 app.get('/index.html', (req, res) => res.redirect(301, '/'));
 
 // Legacy redirects → /projects/*
@@ -90,7 +93,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
+// ---- Routes ----
 app.get('/', (req, res) => res.render('index', { title: 'Home' }));
 app.get('/about', (req, res) => res.render('about', { title: 'About Me' }));
 app.get('/contact', (req, res) => res.render('contact', { title: 'Contact' }));
@@ -115,14 +118,14 @@ app.get('/other_projects', (req, res) =>
   res.render('project_pages/ux_projects/other_projects', { title: 'other_projects' })
 );
 
-app.get('/ux-design', (req, res) => res.render('ux-design', { title: 'ux-design' }));
-app.get('/websites', (req, res) => res.render('websites', { title: 'websites' }));
-app.get('/blog', (req, res) => res.render('blog', { title: 'blog' }));
-app.get('/coding-projects', (req, res) => res.render('coding-projects', { title: 'coding-projects' }));
+app.get('/ux-design', (req, res) => res.render('ux-design', { title: 'UX Design' }));
+app.get('/websites', (req, res) => res.render('websites', { title: 'Websites' }));
+app.get('/blog', (req, res) => res.render('blog', { title: 'Blog' }));
+app.get('/coding-projects', (req, res) => res.render('coding-projects', { title: 'Coding Projects' }));
 
 // Program pages
-app.get('/obj_builder', (req, res) => res.render('program_desc/obj_builder', { title: 'obj_builder' }));
-app.get('/catholic_blog', (req, res) => res.render('program_desc/catholic_blog', { title: 'catholic_blog' }));
+app.get('/obj_builder', (req, res) => res.render('program_desc/obj_builder', { title: 'Objective Builder' }));
+app.get('/catholic_blog', (req, res) => res.render('program_desc/catholic_blog', { title: 'Catholic Blog' }));
 
 // Old project URLs
 app.get('/coding-projects/translator', (req, res) =>
@@ -140,8 +143,8 @@ app.get('/coding-projects/job-scraper-and-emailer', (req, res) =>
 
 // Canonical project URLs
 app.get('/projects', (req, res) => res.render('projects', { title: 'Projects' }));
-app.get('/projects/websites', (req, res) => res.render('websites', { title: 'websites' }));
-app.get('/projects/ux-design', (req, res) => res.render('ux-design', { title: 'ux-design' }));
+app.get('/projects/websites', (req, res) => res.render('websites', { title: 'Websites' }));
+app.get('/projects/ux-design', (req, res) => res.render('ux-design', { title: 'UX Design' }));
 app.get('/projects/habit-tracker', (req, res) =>
   res.render('project_pages/habit_tracker', { title: 'Habit Tracker' })
 );
@@ -155,7 +158,7 @@ app.get('/projects/job-scraper', (req, res) =>
   res.render('project_pages/job_scraper', { title: 'Job Scraper & Emailer' })
 );
 
-// Sitemap (build in code to avoid layout issues)
+// ---- Sitemap (raw XML, no EJS) ----
 app.get('/sitemap.xml', (req, res) => {
   const host = 'https://www.paulkniaz.com';
   const pages = [
@@ -186,10 +189,10 @@ app.get('/sitemap.xml', (req, res) => {
   res.send(xml);
 });
 
-// 404
+// ---- 404 ----
 app.use((req, res) => res.status(404).type('text').send('Not Found'));
 
-// Error handler
+// ---- Error handler ----
 /* eslint-disable no-unused-vars */
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
