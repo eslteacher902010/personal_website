@@ -1,9 +1,12 @@
+// server.js
+const path = require('path');
 const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
-const expressLayouts = require('express-ejs-layouts');
-
+// ---- Health endpoints (must be first) ----
 const COMMIT = process.env.RENDER_GIT_COMMIT || 'dev';
 const healthHandler = (req, res) =>
   res.json({ ok: true, commit: COMMIT, time: new Date().toISOString() });
@@ -11,8 +14,7 @@ const healthHandler = (req, res) =>
 app.get('/__health', healthHandler);
 app.get('/healthz', healthHandler);
 
-
-// ---- Canonical host + HTTPS redirect (run this EARLY) ----
+// ---- Canonical host + HTTPS redirect ----
 app.set('trust proxy', true);
 
 const CANONICAL_HOST = 'www.paulkniaz.com';
@@ -21,11 +23,11 @@ const BYPASS = new Set(['/__health', '/healthz', '/sitemap.xml', '/robots.txt'])
 app.use((req, res, next) => {
   if (BYPASS.has(req.path)) return next();
 
-  const host = req.headers.host || '';
+  const host = (req.headers.host || '').toLowerCase();
   const isHttps = req.secure || req.headers['x-forwarded-proto'] === 'https';
-  const isRenderDefault = host.endsWith('.onrender.com');
+  const isRenderDefault = host.includes('.onrender.com');
 
-  // allow Render default domain for testing
+  // allow Render default subdomain for testing
   if (!isRenderDefault && host !== CANONICAL_HOST) {
     return res.redirect(301, `https://${CANONICAL_HOST}${req.originalUrl}`);
   }
@@ -35,17 +37,22 @@ app.use((req, res, next) => {
   next();
 });
 
-// ---- App plumbing (after redirects) ----
+// ---- Views / Layouts / Static ----
+app.set('views', path.join(__dirname, 'views'));   // <— make sure your EJS files are in ./views
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
 app.use(expressLayouts);
-app.set('layout', 'base');
+app.set('layout', 'base');                          // requires ./views/base.ejs to exist
+
+app.use(express.static(path.join(__dirname, 'public'))); // <— make sure assets are in ./public
 app.use(express.urlencoded({ extended: true }));
 
-// Fixed index
+// ---- Quick ping (handy during debugging) ----
+app.get('/ping', (req, res) => res.type('text').send('pong'));
+
+// ---- Index redirect convenience ----
 app.get('/index.html', (req, res) => res.redirect(301, '/'));
 
-// Legacy redirects → /projects/*
+// ---- Legacy redirects → /projects/* ----
 const redirects = {
   '/coding-projects/websites': '/projects/websites',
   '/coding-projects/ux-design': '/projects/ux-design',
@@ -61,12 +68,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
+// ---- Routes ----
 app.get('/', (req, res) => res.render('index', { title: 'Home' }));
 app.get('/about', (req, res) => res.render('about', { title: 'About Me' }));
 app.get('/contact', (req, res) => res.render('contact', { title: 'Contact' }));
 app.post('/submit-contact', (req, res) => {
-  const { name, email, message } = req.body;
+  const { name, email, message } = req.body || {};
   console.log('Contact:', { name, email, message });
   res.redirect('/thank-you');
 });
@@ -95,7 +102,7 @@ app.get('/coding-projects', (req, res) => res.render('coding-projects', { title:
 app.get('/obj_builder', (req, res) => res.render('program_desc/obj_builder', { title: 'obj_builder' }));
 app.get('/catholic_blog', (req, res) => res.render('program_desc/catholic_blog', { title: 'catholic_blog' }));
 
-// Old project URLs
+// Old project URLs (still rendering)
 app.get('/coding-projects/translator', (req, res) =>
   res.render('project_pages/translator', { title: 'Translator' })
 );
@@ -126,7 +133,7 @@ app.get('/projects/job-scraper', (req, res) =>
   res.render('project_pages/job_scraper', { title: 'Job Scraper & Emailer' })
 );
 
-// Sitemap (use apex host)
+// Sitemap (use your canonical host)
 app.get('/sitemap.xml', (req, res) => {
   const pages = [
     { url: '/', priority: 1.0 },
@@ -153,11 +160,20 @@ app.get('/sitemap.xml', (req, res) => {
     { url: '/projects/pdf-to-speech', priority: 0.7 },
     { url: '/projects/job-scraper', priority: 0.7 },
   ];
-  res.header('Content-Type', 'application/xml');
-  res.render('sitemap', { title: 'Sitemap', pages, layout: false, host: 'https://paulkniaz.com' });
+  res.set('Content-Type', 'application/xml');
+  res.set('Cache-Control', 'public, max-age=300');
+  res.render('sitemap', { title: 'Sitemap', pages, layout: false, host: 'https://www.paulkniaz.com' });
 });
 
-// 404
-app.use((req, res) => res.status(404).send('Not Found'));
+// ---- 404 ----
+app.use((req, res) => res.status(404).type('text').send('Not Found'));
+
+// ---- Error handler (shows stacks in Render logs) ----
+/* eslint-disable no-unused-vars */
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).type('text').send('Server error');
+});
+/* eslint-enable no-unused-vars */
 
 app.listen(port, () => console.log('Server on :', port));
