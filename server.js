@@ -1,58 +1,65 @@
-// server.js
-const path = require('path');
 const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
-
 const app = express();
 const port = process.env.PORT || 3000;
 
-// ---- Health endpoints (must be first) ----
+const expressLayouts = require('express-ejs-layouts');
+
 const COMMIT = process.env.RENDER_GIT_COMMIT || 'dev';
-const healthHandler = (req, res) =>
-  res.json({ ok: true, commit: COMMIT, time: new Date().toISOString() });
+app.get('/__health', (req, res) =>
+  res.json({ ok: true, commit: COMMIT, time: new Date().toISOString() })
+);
 
-app.get('/__health', healthHandler);
-app.get('/healthz', healthHandler);
+// ---- Canonical host + HTTPS redirect (dev-safe) ----
+app.set('trust proxy', true); // needed on Render/Cloudflare to read x-forwarded-proto
 
-// ---- Canonical host + HTTPS redirect ----
-app.set('trust proxy', true);
-
-const CANONICAL_HOST = 'www.paulkniaz.com';
+const CANONICAL_HOST = 'www.paulkniaz.com'; // pick ONE canonical (www or apex) and stick to it
 const BYPASS = new Set(['/__health', '/healthz', '/sitemap.xml', '/robots.txt']);
+const ALLOWED_DEV_HOSTS = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
+const ENFORCE = (process.env.ENFORCE_CANONICAL ?? 'true') !== 'false';
 
 app.use((req, res, next) => {
   if (BYPASS.has(req.path)) return next();
 
-  const host = (req.headers.host || '').toLowerCase();
+  const env = process.env.NODE_ENV || 'development';
+  const host = (req.headers.host || '');
+  const hostname = host.split(':')[0]; // strip port
   const isHttps = req.secure || req.headers['x-forwarded-proto'] === 'https';
-  const isRenderDefault = host.includes('.onrender.com');
+  const isRenderDefault = hostname.endsWith('.onrender.com');
 
-  // allow Render default subdomain for testing
-  if (!isRenderDefault && host !== CANONICAL_HOST) {
-    return res.redirect(301, `https://${CANONICAL_HOST}${req.originalUrl}`);
+  // In dev (or when hitting localhost), don't redirect
+  if (env !== 'production' || ALLOWED_DEV_HOSTS.has(hostname)) {
+    return next();
   }
+
+  if (!ENFORCE) return next(); // kill switch
+
+  // 1) Force HTTPS
   if (!isHttps) {
     return res.redirect(301, `https://${host}${req.originalUrl}`);
   }
+
+  // 2) Enforce canonical host (but allow Render preview subdomain)
+  if (!isRenderDefault && hostname !== CANONICAL_HOST) {
+    return res.redirect(301, `https://${CANONICAL_HOST}${req.originalUrl}`);
+  }
+
+  // 3) HSTS in prod
+  res.setHeader('Strict-Transport-Security', 'max-age=15552000; includeSubDomains; preload');
   next();
 });
 
-// ---- Views / Layouts / Static ----
-app.set('views', path.join(__dirname, 'views'));   // <— make sure your EJS files are in ./views
-app.set('view engine', 'ejs');
-app.use(expressLayouts);
-app.set('layout', 'base');                          // requires ./views/base.ejs to exist
 
-app.use(express.static(path.join(__dirname, 'public'))); // <— make sure assets are in ./public
+// ---- App plumbing (after redirects) ----
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+app.use(expressLayouts);
+app.set('layout', 'base');
 app.use(express.urlencoded({ extended: true }));
 
-// ---- Quick ping (handy during debugging) ----
-app.get('/ping', (req, res) => res.type('text').send('pong'));
-
-// ---- Index redirect convenience ----
+// Fixed index
 app.get('/index.html', (req, res) => res.redirect(301, '/'));
 
-// ---- Legacy redirects → /projects/* ----
+// Legacy redirects → /projects/*
 const redirects = {
   '/coding-projects/websites': '/projects/websites',
   '/coding-projects/ux-design': '/projects/ux-design',
@@ -68,12 +75,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// ---- Routes ----
+// Routes
 app.get('/', (req, res) => res.render('index', { title: 'Home' }));
 app.get('/about', (req, res) => res.render('about', { title: 'About Me' }));
 app.get('/contact', (req, res) => res.render('contact', { title: 'Contact' }));
 app.post('/submit-contact', (req, res) => {
-  const { name, email, message } = req.body || {};
+  const { name, email, message } = req.body;
   console.log('Contact:', { name, email, message });
   res.redirect('/thank-you');
 });
@@ -102,7 +109,7 @@ app.get('/coding-projects', (req, res) => res.render('coding-projects', { title:
 app.get('/obj_builder', (req, res) => res.render('program_desc/obj_builder', { title: 'obj_builder' }));
 app.get('/catholic_blog', (req, res) => res.render('program_desc/catholic_blog', { title: 'catholic_blog' }));
 
-// Old project URLs (still rendering)
+// Old project URLs
 app.get('/coding-projects/translator', (req, res) =>
   res.render('project_pages/translator', { title: 'Translator' })
 );
@@ -133,48 +140,38 @@ app.get('/projects/job-scraper', (req, res) =>
   res.render('project_pages/job_scraper', { title: 'Job Scraper & Emailer' })
 );
 
-// Sitemap (use your canonical host)
-// Sitemap (no EJS — removes a common 500 cause)
+// Sitemap (use apex host)
 app.get('/sitemap.xml', (req, res) => {
-  const host = 'https://www.paulkniaz.com';
   const pages = [
-    '/', '/about', '/contact', '/thank-you',
-    '/instructor-led-training', '/elearning', '/video-solutions', '/other_projects',
-    '/ux-design', '/websites', '/blog', '/coding-projects',
-    '/coding-projects/translator', '/coding-projects/habit-tracker',
-    '/coding-projects/pdf-to-speech', '/coding-projects/job-scraper-and-emailer',
-    '/projects', '/projects/websites', '/projects/ux-design',
-    '/projects/habit-tracker', '/projects/translator',
-    '/projects/pdf-to-speech', '/projects/job-scraper',
+    { url: '/', priority: 1.0 },
+    { url: '/about', priority: 0.8 },
+    { url: '/contact', priority: 0.8 },
+    { url: '/thank-you', priority: 0.5 },
+    { url: '/instructor-led-training', priority: 0.8 },
+    { url: '/elearning', priority: 0.8 },
+    { url: '/video-solutions', priority: 0.8 },
+    { url: '/other_projects', priority: 0.7 },
+    { url: '/ux-design', priority: 0.8 },
+    { url: '/websites', priority: 0.8 },
+    { url: '/blog', priority: 0.8 },
+    { url: '/coding-projects', priority: 0.8 },
+    { url: '/coding-projects/translator', priority: 0.7 },
+    { url: '/coding-projects/habit-tracker', priority: 0.7 },
+    { url: '/coding-projects/pdf-to-speech', priority: 0.7 },
+    { url: '/coding-projects/job-scraper-and-emailer', priority: 0.7 },
+    { url: '/projects', priority: 0.8 },
+    { url: '/projects/websites', priority: 0.8 },
+    { url: '/projects/ux-design', priority: 0.8 },
+    { url: '/projects/habit-tracker', priority: 0.7 },
+    { url: '/projects/translator', priority: 0.7 },
+    { url: '/projects/pdf-to-speech', priority: 0.7 },
+    { url: '/projects/job-scraper', priority: 0.7 },
   ];
-  const xml = [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    ...pages.map(p => [
-      '  <url>',
-      `    <loc>${host}${p}</loc>`,
-      '    <changefreq>weekly</changefreq>',
-      '    <priority>0.8</priority>',
-      '  </url>',
-    ].join('\n')),
-    '</urlset>',
-  ].join('\n');
-
-  res.set('Content-Type', 'application/xml');
-  res.set('Cache-Control', 'public, max-age=300');
-  res.send(xml);
+  res.header('Content-Type', 'application/xml');
+  res.render('sitemap', { title: 'Sitemap', pages, layout: false, host: 'https://paulkniaz.com' });
 });
 
-
-// ---- 404 ----
-app.use((req, res) => res.status(404).type('text').send('Not Found'));
-
-// ---- Error handler (shows stacks in Render logs) ----
-/* eslint-disable no-unused-vars */
-app.use((err, req, res, next) => {
-  console.error('Unhandled error:', err);
-  res.status(500).type('text').send('Server error');
-});
-/* eslint-enable no-unused-vars */
+// 404
+app.use((req, res) => res.status(404).send('Not Found'));
 
 app.listen(port, () => console.log('Server on :', port));
