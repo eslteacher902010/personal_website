@@ -1,0 +1,98 @@
+<section class="obj_builder_creator py-5">
+  <div class="container-lg">
+    <!-- Header -->
+    <header class="mb-4 text-center">
+      <h1 class="display-6 fw-semibold mb-2">The Genesis of a Blog</h1>
+      <p class="lead text-body-secondary mb-0">
+        Building a personal blog from scratch with JavaScript, Node.js, and Express.
+      </p>
+    </header>
+
+    <!-- Origin story -->
+    <div class="row align-items-center g-4 mb-5">
+      <div class="col-md-5 text-center">
+        <figure class="m-0">
+          <a href="/images/app-images/blogpic.png" target="_blank" rel="noopener">
+            <img src="/images/app-images/blogpic.png" alt="Screenshot of blog homepage" class="img-fluid rounded-3 shadow-sm">
+          </a>
+          <figcaption class="mt-2 small text-body-secondary">Custom-built blog platform</figcaption>
+        </figure>
+      </div>
+      <div class="col-md-7">
+        <h2 class="h4 fw-semibold mb-3">From Journal to Web App</h2>
+        <p>
+          I’ve always written reflections and teaching notes, but I wanted a space to
+          publish them online in a format that was mine—not just Medium or WordPress. 
+          That meant building a blog engine myself.
+        </p>
+        <p>
+          Instead of using a pre-made CMS, I built the blog with 
+          <strong>Node.js</strong> and <strong>Express</strong>, wiring up 
+          routes, EJS templates, and Sequelize for database management. 
+          It was my first time going full-stack with JavaScript.
+        </p>
+        <p>
+          Along the way I learned how to manage authentication, CRUD operations 
+          for posts, and category filtering. I also added Markdown support for 
+          writing posts faster and cleaner.
+        </p>
+      </div>
+    </div>
+
+    <!-- Code Sample -->
+    <div class="card shadow-sm border-0 mb-5">
+      <div class="card-body">
+        <h3 class="h5 fw-semibold mb-3">Sample Route Snippet</h3>
+        <p class="mb-3">
+          Express made it straightforward to handle dynamic blog routes:
+     <pre class="code-block rounded-3 p-3 mb-0"><code>app.get("/", async (req, res) => {
+  const posts = await Post.findAll({
+    where: { status: "published" },
+    include: Category,
+    order: [["createdAt", "DESC"]],
+  });
+
+  res.render("index", {
+    title: "Hey Kniaz",
+    layout: false,
+    recentPost: posts[0],
+    posts: posts.slice(1),
+    user: req.session.userName || null,
+    activeCategory: null,
+  });
+});</code></pre>
+        </p>
+        <pre class="code-block rounded-3 p-3 mb-0"><code>app.get('/post/:id', async (req, res) => {
+  const post = await Post.findByPk(req.params.id);
+  res.render('post', { post });
+});</code></pre>
+      </div>
+    </div>
+
+    <!-- Tools Used -->
+    <section class="tools-used mb-5">
+      <h2 class="h4 fw-semibold mb-3">Tools Used</h2>
+      <ul class="row row-cols-1 row-cols-md-2 g-2 ps-3">
+        <li>JavaScript (Node.js, Express)</li>
+        <li>EJS templating</li>
+        <li>Sequelize ORM</li>
+        <li>SQLite (development)</li>
+        <li>PostgreSQL (production)</li>
+        <li>Bootstrap 5</li>
+        <li>HTML/CSS</li>
+        <li>Markdown support</li>
+        <li>Fly.io (deployment)</li>
+      </ul>
+    </section>
+
+    <!-- Call to action -->
+    <div class="text-center d-flex flex-wrap justify-content-center gap-2">
+      <a href="heykniaz.com" class="btn btn-primary btn-lg shadow-sm px-4">
+        Visit My Blog
+      </a>
+      <a href="https://gist.github.com/eslteacher902010/7f3715ef14f08bd5a194dc064672a53c" class="btn btn-outline-secondary btn-lg shadow-sm px-4">
+        View fly.toml 
+      </a>
+    </div>
+  </div>
+</section>

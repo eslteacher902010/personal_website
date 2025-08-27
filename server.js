@@ -126,6 +126,7 @@ app.get('/coding-projects', (req, res) => res.render('coding-projects', { title:
 // Program pages
 app.get('/obj_builder', (req, res) => res.render('program_desc/obj_builder', { title: 'Objective Builder' }));
 app.get('/catholic_blog', (req, res) => res.render('program_desc/catholic_blog', { title: 'Catholic Blog' }));
+app.get('/personal_blog', (req, res) => res.render('program_desc/personal_blog', { title: 'Personal Blog' }));
 
 // Old project URLs
 app.get('/coding-projects/translator', (req, res) =>
