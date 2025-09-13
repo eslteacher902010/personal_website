@@ -1,83 +1,115 @@
-<section class="hero-banner">
-  <h1>Blog and News</h1>
+<section class="hero-banner text-center py-5 bg-light">
+  <h1 class="display-4 fw-bold">Blog and News</h1>
 </section>
 
 <div class="container my-5">
+  <!-- Blog intro card -->
   <div class="instructor-led-banner">
-      <div class="row align-items-start g-4">
-        <div class="col-md-4">
-          <img class="ilt-image img-fluid w-100 rounded" src="/images/sicut-erat.png" alt="blog">
+    <div class="row align-items-start g-4">
+      <div class="col-md-4">
+        <img class="ilt-image img-fluid w-100 rounded shadow-sm" 
+             src="/images/sicut-erat.png" alt="Personal Blog">
+      </div>
+      <div class="col-md-8">
+        <h1 class="header-ilt">Personal Blog</h1>
+        <p class="web-description">
+          This blog is a personal reflection on life’s transitions — in career, creativity, and meaning — 
+          and the lessons that emerge along the way.
+        </p>
+        <p class="text-start"><strong>Tools:</strong> Node.js, Express, EJS, JavaScript, HTML/CSS</p>
+        <div class="text-start mt-4">
+          <a href="/personal_blog" class="btn btn-primary">View Blog Project</a>
         </div>
-
-        <div class="col-md-8">
-          <h1 class="header-ilt">Personal Blog</h1>
-          <p class="web-description">
-            This blog is a personal reflection on life’s transitions — in career, creativity, and meaning — and the lessons that emerge along the way.
-          </p>
-         <p style="text-align: left;"><strong>Tools:</strong> Node.js, Express, EJS, JavaScript, HTML/CSS</p>
-          <div class="text-start mt-4">
-            <a href="/personal_blog" class="web-button">View Blog Project</a>
-          </div>
-        </div>
       </div>
     </div>
-</div>
-
-
-<main class="container my-5">
-<div class="container marketing">
-
-    <section class="other-news">Other News </section>
-
-        <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">100 Days of Python. <span class="text-muted">A Long, Long Journey.</span></h2>
-        <p class="lead">
-          I recently completed the 100 Days of Python — though for me, it was more like 300. 
-          What started as a coding challenge turned into a long, winding journey through web apps, 
-          automation, and problem-solving. It took time, but the growth was real.
-        </p>
-      </div>
-      <div class="col-md-5">
-        <img class="featurette-image img-fluid mx-auto" src="/images/100.png" alt="100 Days of Python">
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <!-- Blog Post 2 -->
-    <div class="row featurette">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">Instructional Design Certification. <span class="text-muted">Just One of Many Badges.</span></h2>
-        <p class="lead">
-          I’m sharing one of my instructional design certifications from the Instructional Design Company. 
-          The course was a deep dive into adult learning theory, course creation, and practical tools — 
-          a valuable step in building learning experiences that actually work.
-        </p>
-      </div>
-      <div class="col-md-5 order-md-1 d-flex align-items-center">
-        <img class="featurette-image img-fluid mx-auto" src="/images/cert_idc.png" alt="Instructional Design Cert">
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <!-- Blog Post 3 -->
-    <div class="row featurette mb-5">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-        <p class="lead">
-          Finished a HELLISH school year. Trying to recover and not burn too badly at the beach.😉
-        </p>
-      </div>
-      <div class="col-md-5">
-        <img class="featurette-image img-fluid mx-auto" src="/images/beachdays.jpg" alt="Beach Days">
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
   </div>
 </div>
 
-      </div>
+<main class="container my-5 marketing">
+
+  <!-- Section heading -->
+  <h2 class="pb-3 mb-4 border-bottom">Other News</h2>
+
+  <!-- Blog Post 1 -->
+  <div class="row featurette mb-5">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">
+        General Assembly Starts 🚀 <span class="text-muted">A Long, Long Journey.</span>
+      </h2>
+      <p class="lead mt-3">
+        I’m definitely on a journey, that’s for sure. This Software Engineering Bootcamp has been full of challenges, growth, 
+        and discoveries — I’m not entirely sure yet where it will lead me, but I hope the destination is somewhere exciting and meaningful.
+      </p>
+      <p>
+        Along the way, I’ve been building projects that reflect my love of learning and my passion for classical music, 
+        including <a href="https://classical-encyclopedia-9d99a6ed6053.herokuapp.com/" target="_blank" class="fw-bold text-decoration-none">
+          Classical DB
+        </a>, a site where composers, works, and history come together in one place 
+        (currently being verified by Google — safe to proceed if a warning appears).
+      </p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-fluid mx-auto d-block rounded shadow-sm" 
+           src="/images/GA.png" alt="General Assembly journey">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <!-- Blog Post 2 -->
+  <div class="row featurette mb-5">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">
+        100 Days of Python <span class="text-muted">A Marathon, Not a Sprint.</span>
+      </h2>
+      <p class="lead">
+        I recently completed the 100 Days of Python — though for me, it was more like 300. 
+        What started as a coding challenge turned into a long, winding journey through web apps, 
+        automation, and problem-solving. It took time, but the growth was real.
+      </p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-fluid mx-auto rounded shadow-sm" 
+           src="/images/100.png" alt="100 Days of Python">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <!-- Blog Post 3 -->
+  <div class="row featurette mb-5">
+    <div class="col-md-7 order-md-2">
+      <h2 class="featurette-heading">
+        Instructional Design Certification <span class="text-muted">Another Badge Earned.</span>
+      </h2>
+      <p class="lead">
+        I’m sharing one of my instructional design certifications from the Instructional Design Company. 
+        The course was a deep dive into adult learning theory, course creation, and practical tools — 
+        a valuable step in building learning experiences that actually work.
+      </p>
+    </div>
+    <div class="col-md-5 order-md-1 d-flex align-items-center">
+      <img class="featurette-image img-fluid mx-auto rounded shadow-sm" 
+           src="/images/cert_idc.png" alt="Instructional Design Cert">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <!-- Blog Post 4 -->
+  <div class="row featurette mb-5">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">
+        And lastly… <span class="text-muted">Checkmate.</span>
+      </h2>
+      <p class="lead">
+        Finished a HELLISH school year. Trying to recover and not burn too badly at the beach. 😉
+      </p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-fluid mx-auto rounded shadow-sm" 
+           src="/images/beachdays.jpg" alt="Beach Days">
+    </div>
+  </div>
+
+</main>
