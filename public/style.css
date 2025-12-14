@@ -680,3 +680,12 @@ ul {
   color: #b5ffe9;
   margin-top: 0.25rem;
 }
+
+.navbar {
+  position: relative;
+  z-index: 1000;
+}
+
+.dropdown-menu {
+  z-index: 2000;
+}
