@@ -689,3 +689,16 @@ ul {
 .dropdown-menu {
   z-index: 2000;
 }
+
+.welcome-banner {
+  font-size: 5rem;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.welcome-explain {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  color: black;
+  font-style: italic;
+}
