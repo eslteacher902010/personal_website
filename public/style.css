@@ -365,6 +365,74 @@ ul {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Keep this page independent of the horizontal project-card layout below. */
+.ilt-page .ilt-hero-image {
+  width: 100%;
+  max-width: 350px;
+}
+
+.ilt-page .instructor-led-banner {
+  padding: 60px 32px;
+}
+
+.ilt-page .header-ilt {
+  transform: none;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.ilt-page .ilt-explain {
+  max-width: 700px;
+}
+
+.ilt-page .ilt-card-section {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+}
+
+.ilt-page .card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.ilt-page .card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ilt-page .card-text {
+  flex: 1;
+}
+
+.ilt-page .storyboard-section {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+@media (max-width: 767.98px) {
+  .ilt-page .instructor-led-banner {
+    padding: 40px 20px;
+  }
+
+  .ilt-page .ilt-button {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 1.05rem;
+  }
+}
+
 
 .project-section {
   background-color: #eaf2f3;
